@@ -39,17 +39,13 @@ mkdir "./package/turboacc"
 cp -r "$TMPDIR/turboacc/luci-app-turboacc" "./package/turboacc"
 cp -r "$TMPDIR/turboacc/fullconenat" "./package/turboacc"
 cp -r "$TMPDIR/turboacc/fullconenat-nft" "./package/turboacc"
-
-sed -i 's|include ../../luci.mk|include $(TOPDIR)/feeds/luci/luci.mk|g' "./package/turboacc/luci-app-turboacc/Makefile"
+cp -f "$TMPDIR/turboacc/custom/luci-app-turboacc/Makefile" "./package/turboacc/luci-app-turboacc"
 
 mkdir -p ./package/network/config/firewall/patches && cp -r "$TMPDIR/turboacc/patches/firewall/patches/"* ./package/network/config/firewall/patches/
 mkdir -p ./package/network/config/firewall4/patches && cp -r "$TMPDIR/turboacc/patches/firewall4/patches/"* ./package/network/config/firewall4/patches/
 mkdir -p ./package/network/utils/iptables/patches && cp -r "$TMPDIR/turboacc/patches/iptables/patches/"* ./package/network/utils/iptables/patches/
 mkdir -p ./package/network/utils/nftables/patches && cp -r "$TMPDIR/turboacc/patches/nftables/patches/"* ./package/network/utils/nftables/patches/
 mkdir -p ./package/libs/libnftnl/patches && cp -r "$TMPDIR/turboacc/patches/libnftnl/patches/"* ./package/libs/libnftnl/patches/
-
-sed -i '/^DEPENDS:=/ s/$/ +iptables-mod-fullconenat/' ./package/network/config/firewall/Makefile
-sed -i '/^DEPENDS:=/ s/$/ +kmod-nft-fullcone/' ./package/network/utils/nftables/Makefile
 
 echo "Finish"
 exit 0
