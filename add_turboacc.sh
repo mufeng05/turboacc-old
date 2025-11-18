@@ -21,8 +21,8 @@ git clone --depth=1 --single-branch https://github.com/mufeng05/turboacc "$TMPDI
 for kernel_version in $kernel_versions; do
     if [ "$kernel_version" = "6.12" ] || [ "$kernel_version" = "6.6" ]; then
         cp "$TMPDIR/turboacc/hack-$kernel_version/952-add-net-conntrack-events-support-multiple-registrant.patch" "./target/linux/generic/hack-$kernel_version"
-        cp "$TMPDIR/package/hack-$kernel_version/953-net-patch-linux-kernel-to-support-shortcut-fe.patch" "./target/linux/generic/hack-$kernel_version"
-        cp "$TMPDIR/package/pending-$kernel_version/613-netfilter_optional_tcp_window_check.patch" "./target/linux/generic/pending-$kernel_version"
+        cp "$TMPDIR/turboacc/hack-$kernel_version/953-net-patch-linux-kernel-to-support-shortcut-fe.patch" "./target/linux/generic/hack-$kernel_version"
+        cp "$TMPDIR/turboacc/pending-$kernel_version/613-netfilter_optional_tcp_window_check.patch" "./target/linux/generic/pending-$kernel_version"
 
         if ! grep -q "CONFIG_SHORTCUT_FE" "./target/linux/generic/config-$kernel_version"; then
             echo "# CONFIG_SHORTCUT_FE is not set" >> "./target/linux/generic/config-$kernel_version"
