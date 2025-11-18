@@ -22,6 +22,8 @@ for kernel_version in $kernel_versions; do
     if [ "$kernel_version" = "6.12" ] || [ "$kernel_version" = "6.6" ]; then
         cp "$TMPDIR/turboacc/hack-$kernel_version/952-add-net-conntrack-events-support-multiple-registrant.patch" "./target/linux/generic/hack-$kernel_version"
         cp "$TMPDIR/turboacc/hack-$kernel_version/953-net-patch-linux-kernel-to-support-shortcut-fe.patch" "./target/linux/generic/hack-$kernel_version"
+        cp "$TMPDIR/turboacc/hack-$kernel_version/982-add-bcm-fullconenat-support.patch" "./target/linux/generic/hack-$kernel_version"
+        cp "$TMPDIR/turboacc/hack-$kernel_version/983-add-bcm-fullconenat-to-nft.patch" "./target/linux/generic/hack-$kernel_version"
         cp "$TMPDIR/turboacc/pending-$kernel_version/613-netfilter_optional_tcp_window_check.patch" "./target/linux/generic/pending-$kernel_version"
 
         if ! grep -q "CONFIG_SHORTCUT_FE" "./target/linux/generic/config-$kernel_version"; then
