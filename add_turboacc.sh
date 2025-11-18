@@ -35,7 +35,7 @@ for kernel_version in $kernel_versions; do
     fi
 done
 
-mkdir "./package/turboacc"
+mkdir -p "./package/turboacc"
 cp -rf "$TMPDIR/turboacc/luci-app-turboacc" "./package/turboacc"
 cp -rf "$TMPDIR/turboacc/fullconenat" "./package/turboacc"
 cp -rf "$TMPDIR/turboacc/fullconenat-nft" "./package/turboacc"
