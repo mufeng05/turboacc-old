@@ -53,6 +53,7 @@ define Package/luci-app-turboacc/config
   config PACKAGE_TURBOACC_INCLUDE_FULLCONE
     bool "Include fullcone NAT"
     default y
+    depends on PACKAGE_luci-app-turboacc
     select PACKAGE_kmod-nft-fullcone if PACKAGE_firewall4
     select PACKAGE_iptables-mod-fullconenat if PACKAGE_firewall
 endef
