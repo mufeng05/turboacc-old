@@ -39,6 +39,7 @@ mkdir "./package/turboacc"
 cp -r "$TMPDIR/turboacc/luci-app-turboacc" "./package/turboacc"
 cp -r "$TMPDIR/turboacc/fullconenat" "./package/turboacc"
 cp -r "$TMPDIR/turboacc/fullconenat-nft" "./package/turboacc"
+sed -i 's|include ../../luci.mk|include $(TOPDIR)/feeds/luci/luci.mk|g' "./package/turboacc/luci-app-turboacc/Makefile"
 
 mkdir -p ./package/network/config/firewall/patches && cp -r "$TMPDIR/turboacc/patches/firewall/patches/"* ./package/network/config/firewall/patches/
 mkdir -p ./package/network/config/firewall4/patches && cp -r "$TMPDIR/turboacc/patches/firewall4/patches/"* ./package/network/config/firewall4/patches/
