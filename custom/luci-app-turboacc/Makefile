@@ -13,17 +13,12 @@ PKG_CONFIG_DEPENDS:= \
 	CONFIG_PACKAGE_TURBOACC_INCLUDE_FAST_CLASSIFIER \
 	CONFIG_PACKAGE_TURBOACC_INCLUDE_SHORTCUT_FE_CM \
 	CONFIG_PACKAGE_TURBOACC_INCLUDE_BBR_CCA \
-  CONFIG_PACKAGE_TURBOACC_INCLUDE_FULLCONE
+  CONFIG_PACKAGE_TURBOACC_INCLUDE_FULLCONE \
+  CONFIG_TURBOACC_FULLCONE_NFT \
+	CONFIG_TURBOACC_FULLCONE_IPT
 
 PKG_LICENSE:=GPL-3.0-only
 PKG_MAINTAINER:=Tianling Shen <cnsztl@immortalwrt.org>
-
-FULLCONE_PKG:=
-ifeq ($(CONFIG_PACKAGE_FIREWALL4),y)
-  FULLCONE_PKG:=kmod-nft-fullcone
-else
-  FULLCONE_PKG:=iptables-mod-fullconenat
-endif
 
 LUCI_TITLE:=LuCI support for FastPath (FW3 or FW4)
 LUCI_DEPENDS:= \
@@ -31,7 +26,8 @@ LUCI_DEPENDS:= \
 	+PACKAGE_TURBOACC_INCLUDE_FAST_CLASSIFIER:kmod-fast-classifier \
 	+PACKAGE_TURBOACC_INCLUDE_SHORTCUT_FE_CM:kmod-shortcut-fe-cm \
 	+PACKAGE_TURBOACC_INCLUDE_BBR_CCA:kmod-tcp-bbr \
-	+PACKAGE_TURBOACC_INCLUDE_FULLCONE:$(FULLCONE_PKG)
+	+TURBOACC_FULLCONE_NFT:kmod-nft-fullcone \
+	+TURBOACC_FULLCONE_IPT:iptables-mod-fullconenat
 LUCI_PKGARCH:=all
 
 define Package/luci-app-turboacc/config
@@ -57,8 +53,20 @@ define Package/luci-app-turboacc/config
     default y
 
   config PACKAGE_TURBOACC_INCLUDE_FULLCONE
-    bool "Include Fullcone NAT"
+    bool "Include fullcone NAT"
     default y
+
+  config TURBOACC_FULLCONE_NFT
+    bool "Use nftables fullcone"
+    depends on PACKAGE_TURBOACC_INCLUDE_FULLCONE
+    depends on PACKAGE_firewall4
+    select PACKAGE_kmod-nft-fullcone
+
+  config TURBOACC_FULLCONE_IPT
+    bool "Use iptables fullcone"
+    depends on PACKAGE_TURBOACC_INCLUDE_FULLCONE
+    depends on PACKAGE_firewall
+    select PACKAGE_iptables-mod-fullconenat
 endef
 
 include $(TOPDIR)/feeds/luci/luci.mk
