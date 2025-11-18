@@ -20,12 +20,13 @@ PKG_MAINTAINER:=Tianling Shen <cnsztl@immortalwrt.org>
 
 LUCI_TITLE:=LuCI support for FastPath (FW3 or FW4)
 LUCI_DEPENDS:= \
-	+PACKAGE_TURBOACC_INCLUDE_FLOW_OFFLOADING:kmod-ipt-offload \
+	+PACKAGE_TURBOACC_INCLUDE_FLOW_OFFLOADING&&PACKAGE_firewall:kmod-ipt-offload \
+	+PACKAGE_TURBOACC_INCLUDE_FLOW_OFFLOADING&&PACKAGE_firewall4:kmod-nft-offload \
 	+PACKAGE_TURBOACC_INCLUDE_FAST_CLASSIFIER:kmod-fast-classifier \
 	+PACKAGE_TURBOACC_INCLUDE_SHORTCUT_FE_CM:kmod-shortcut-fe-cm \
 	+PACKAGE_TURBOACC_INCLUDE_BBR_CCA:kmod-tcp-bbr \
-  +PACKAGE_TURBOACC_INCLUDE_FULLCONE&&PACKAGE_firewall4:kmod-nft-fullcone \
-  +PACKAGE_TURBOACC_INCLUDE_FULLCONE&&PACKAGE_firewall:iptables-mod-fullconenat
+	+PACKAGE_TURBOACC_INCLUDE_FULLCONE&&PACKAGE_firewall:iptables-mod-fullconenat \
+	+PACKAGE_TURBOACC_INCLUDE_FULLCONE&&PACKAGE_firewall4:kmod-nft-fullcone
 LUCI_PKGARCH:=all
 
 define Package/luci-app-turboacc/config
