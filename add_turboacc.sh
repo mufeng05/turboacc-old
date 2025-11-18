@@ -20,11 +20,11 @@ git clone --depth=1 --single-branch https://github.com/mufeng05/turboacc "$TMPDI
 
 for kernel_version in $kernel_versions; do
     if [ "$kernel_version" = "6.12" ] || [ "$kernel_version" = "6.6" ]; then
-        cp "$TMPDIR/turboacc/hack-$kernel_version/952-add-net-conntrack-events-support-multiple-registrant.patch" "./target/linux/generic/hack-$kernel_version"
-        cp "$TMPDIR/turboacc/hack-$kernel_version/953-net-patch-linux-kernel-to-support-shortcut-fe.patch" "./target/linux/generic/hack-$kernel_version"
-        cp "$TMPDIR/turboacc/hack-$kernel_version/982-add-bcm-fullconenat-support.patch" "./target/linux/generic/hack-$kernel_version"
-        cp "$TMPDIR/turboacc/hack-$kernel_version/983-add-bcm-fullconenat-to-nft.patch" "./target/linux/generic/hack-$kernel_version"
-        cp "$TMPDIR/turboacc/pending-$kernel_version/613-netfilter_optional_tcp_window_check.patch" "./target/linux/generic/pending-$kernel_version"
+        cp -f "$TMPDIR/turboacc/hack-$kernel_version/952-add-net-conntrack-events-support-multiple-registrant.patch" "./target/linux/generic/hack-$kernel_version"
+        cp -f "$TMPDIR/turboacc/hack-$kernel_version/953-net-patch-linux-kernel-to-support-shortcut-fe.patch" "./target/linux/generic/hack-$kernel_version"
+        cp -f "$TMPDIR/turboacc/hack-$kernel_version/982-add-bcm-fullconenat-support.patch" "./target/linux/generic/hack-$kernel_version"
+        cp -f "$TMPDIR/turboacc/hack-$kernel_version/983-add-bcm-fullconenat-to-nft.patch" "./target/linux/generic/hack-$kernel_version"
+        cp -f "$TMPDIR/turboacc/pending-$kernel_version/613-netfilter_optional_tcp_window_check.patch" "./target/linux/generic/pending-$kernel_version"
 
         if ! grep -q "CONFIG_SHORTCUT_FE" "./target/linux/generic/config-$kernel_version"; then
             echo "# CONFIG_SHORTCUT_FE is not set" >> "./target/linux/generic/config-$kernel_version"
@@ -36,16 +36,16 @@ for kernel_version in $kernel_versions; do
 done
 
 mkdir "./package/turboacc"
-cp -r "$TMPDIR/turboacc/luci-app-turboacc" "./package/turboacc"
-cp -r "$TMPDIR/turboacc/fullconenat" "./package/turboacc"
-cp -r "$TMPDIR/turboacc/fullconenat-nft" "./package/turboacc"
+cp -rf "$TMPDIR/turboacc/luci-app-turboacc" "./package/turboacc"
+cp -rf "$TMPDIR/turboacc/fullconenat" "./package/turboacc"
+cp -rf "$TMPDIR/turboacc/fullconenat-nft" "./package/turboacc"
 cp -f "$TMPDIR/turboacc/custom/luci-app-turboacc/Makefile" "./package/turboacc/luci-app-turboacc"
 
-mkdir -p ./package/network/config/firewall/patches && cp -r "$TMPDIR/turboacc/patches/firewall/patches/"* ./package/network/config/firewall/patches/
-mkdir -p ./package/network/config/firewall4/patches && cp -r "$TMPDIR/turboacc/patches/firewall4/patches/"* ./package/network/config/firewall4/patches/
-mkdir -p ./package/network/utils/iptables/patches && cp -r "$TMPDIR/turboacc/patches/iptables/patches/"* ./package/network/utils/iptables/patches/
-mkdir -p ./package/network/utils/nftables/patches && cp -r "$TMPDIR/turboacc/patches/nftables/patches/"* ./package/network/utils/nftables/patches/
-mkdir -p ./package/libs/libnftnl/patches && cp -r "$TMPDIR/turboacc/patches/libnftnl/patches/"* ./package/libs/libnftnl/patches/
+mkdir -p ./package/network/config/firewall/patches && cp -rf "$TMPDIR/turboacc/patches/firewall/patches/"* ./package/network/config/firewall/patches/
+mkdir -p ./package/network/config/firewall4/patches && cp -rf "$TMPDIR/turboacc/patches/firewall4/patches/"* ./package/network/config/firewall4/patches/
+mkdir -p ./package/network/utils/iptables/patches && cp -rf "$TMPDIR/turboacc/patches/iptables/patches/"* ./package/network/utils/iptables/patches/
+mkdir -p ./package/network/utils/nftables/patches && cp -rf "$TMPDIR/turboacc/patches/nftables/patches/"* ./package/network/utils/nftables/patches/
+mkdir -p ./package/libs/libnftnl/patches && cp -rf "$TMPDIR/turboacc/patches/libnftnl/patches/"* ./package/libs/libnftnl/patches/
 
 echo "Finish"
 exit 0

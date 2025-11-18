@@ -54,6 +54,10 @@ define Package/luci-app-turboacc/config
   config PACKAGE_TURBOACC_INCLUDE_BBR_CCA
     bool "Enable BBR CCA"
     default y
+
+  config PACKAGE_TURBOACC_INCLUDE_FULLCONE
+    bool "Include fullcone"
+    default y
 endef
 
 include $(TOPDIR)/feeds/luci/luci.mk
