@@ -49,7 +49,7 @@ mkdir -p ./package/network/utils/nftables/patches && cp -r "$TMPDIR/turboacc/pat
 mkdir -p ./package/libs/libnftnl/patches && cp -r "$TMPDIR/turboacc/patches/libnftnl/patches/"* ./package/libs/libnftnl/patches/
 
 sed -i '/^DEPENDS:=/ s/$/ +iptables-mod-fullconenat/' ./package/network/config/firewall/Makefile
-sed -i ':a; /^DEPENDS:=/ { N; /\\$/ba; s/\s*$/ +iptables-mod-fullconenat/ }' ./package/network/config/firewall4/Makefile
+sed -i '/^DEPENDS:=/ s/$/ +kmod-nft-fullcone/' ./package/network/utils/nftables/Makefile
 
 echo "Finish"
 exit 0
