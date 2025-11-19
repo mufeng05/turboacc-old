@@ -67,7 +67,7 @@
  		printf(" %srandom", flag_pfx);
  	if (r->flags & NF_NAT_RANGE_PROTO_RANDOM_FULLY)
  		printf(" %srandom-fully", flag_pfx);
-+	if (r->min_ip == 1)
++	if (r->min_addr.ip == 1)
 +		printf(" mode: fullcone");
  	if (r->flags & NF_NAT_RANGE_PERSISTENT)
  		printf(" %spersistent", flag_pfx);
