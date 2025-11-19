@@ -20,6 +20,7 @@ git clone --depth=1 --single-branch https://github.com/mufeng05/turboacc "$TMPDI
 
 for kernel_version in $kernel_versions; do
     if [ "$kernel_version" = "6.12" ] || [ "$kernel_version" = "6.6" ]; then
+        cp -f "$TMPDIR/turboacc/hack-$kernel_version/951-disable-unused-__nf_conntrack_eventmask_report.patch" "./target/linux/generic/hack-$kernel_version"
         cp -f "$TMPDIR/turboacc/hack-$kernel_version/952-add-net-conntrack-events-support-multiple-registrant.patch" "./target/linux/generic/hack-$kernel_version"
         cp -f "$TMPDIR/turboacc/hack-$kernel_version/953-net-patch-linux-kernel-to-support-shortcut-fe.patch" "./target/linux/generic/hack-$kernel_version"
         cp -f "$TMPDIR/turboacc/hack-$kernel_version/982-add-bcm-fullconenat-support.patch" "./target/linux/generic/hack-$kernel_version"
