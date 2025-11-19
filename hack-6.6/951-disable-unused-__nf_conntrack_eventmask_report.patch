@@ -5,7 +5,7 @@
  		schedule_delayed_work(&cnet->ecache.dwork, delay);
  }
  
-++#ifndef CONFIG_NF_CONNTRACK_CHAIN_EVENTS
++#ifndef CONFIG_NF_CONNTRACK_CHAIN_EVENTS
  static int __nf_conntrack_eventmask_report(struct nf_conntrack_ecache *e,
  					   const u32 events,
  					   const u32 missed,
@@ -15,7 +15,7 @@
  
  	return ret;
  }
-++#endif
++#endif
  
  int nf_conntrack_eventmask_report(unsigned int events, struct nf_conn *ct,
  				  u32 portid, int report)
