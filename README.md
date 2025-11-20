@@ -1,32 +1,17 @@
 # luci-app-turboacc
 
-中文|[English](https://github.com/chenmozhijin/turboacc/blob/luci/README_EN.md)
+一个适用于官方OpenWrt(24.10/snapshot) firewall3/firewall4的turboacc  
+包括以下功能：软件流量分载、Shortcut-FE、全锥型 NAT、BBR 拥塞控制算法
 
-一个适用于官方openwrt(22.03/23.05) firewall4的turboacc  
-包括以下功能：软件流量分载、Shortcut-FE、全锥型 NAT、BBR 拥塞控制算法  
-
- 编译测试：[![TEST Status](https://github.com/chenmozhijin/turboacc/actions/workflows/test.yml/badge.svg)](https://github.com/chenmozhijin/turboacc/actions/workflows/test.yml)  
- 依赖自动更新：[![UPDATE Status](https://github.com/chenmozhijin/turboacc/actions/workflows/update.yml/badge.svg)](https://github.com/chenmozhijin/turboacc/actions/workflows/update.yml)
+目前仅测试了2025-11-20的x86平台的snapshot版本OpenWrt，fw3(iptables)和fw4(nftables)均可用
 
 ## 使用方法
 
 + 在openwrt源代码所在目录执行：
 
-    带sfe:
-
     ```bash
-    curl -sSL https://raw.githubusercontent.com/chenmozhijin/turboacc/luci/add_turboacc.sh -o add_turboacc.sh && bash add_turboacc.sh
+    curl -sSL https://raw.githubusercontent.com/mufeng05/turboacc/luci/add_turboacc.sh -o add_turboacc.sh && bash add_turboacc.sh
     ```
-
-    > 这将会下载luci-app-turboacc、nft-fullcone、shortcut-fe 替换firewall4、libnftnl、nftables并打上952、613、953补丁。
-
-    不带sfe:
-
-    ```bash
-    curl -sSL https://raw.githubusercontent.com/chenmozhijin/turboacc/luci/add_turboacc.sh -o add_turboacc.sh && bash add_turboacc.sh --no-sfe
-    ```
-
-    > 这将会下载luci-app-turboacc、nft-fullcone 替换firewall4、libnftnl、nftables并打上952补丁。
 
 + 之后执行
 
@@ -35,17 +20,16 @@ make menuconfig
 ```
 
 + 在 > LuCI > 3. Applications中选中luci-app-turboacc
-+ 如果你想用要一个用GitHub Actions云编译带turboacc官方源码的openwrt可以看看这个仓库[OpenWrt-K](https://github.com/chenmozhijin/OpenWrt-K)
 
 ## 注意
 
-1. 软件流量分载为firewall4自带的功能(见firewall4的[Makefile](https://github.com/openwrt/openwrt/blob/afa229038c05ba0ca20595d7f73bea94db21d3a6/package/network/config/firewall4/Makefile#L25C31-L25C48))按理来说其兼容性与稳定性都比较好，一般不需要sfe(sfe相关的功能我都没有测试过)。
-2. 默认的使用方法会把firewall4、libnftnl、nftables替换最新修补后的版本，如你遇到问题可以尝试使用旧版firewall4、libnftnl、nftables。（package分支中有旧版存档）
+1. 软件流量分载默认使用`flow offloading`，可根据需要自行更换为`fast classifier`或`shortcut-fe`。
+2. 因OpenWrt现在使用`firewall4`作为默认防火墙，如果切换为`firewall3`的话，请把所有与nft相关的包手动取消掉，并替换为相应的ipt包(例如: `iptables-nft`替换为`iptables-zz-legacy`)。
 
 ## 插件预览
 
-![插件预览](https://raw.githubusercontent.com/chenmozhijin/turboacc/luci/img/1.png)
-![效果预览](https://raw.githubusercontent.com/chenmozhijin/turboacc/luci/img/2.png)
+![fw3预览](https://raw.githubusercontent.com/mufeng05/turboacc/luci/img/fw3.png)
+![fw4预览](https://raw.githubusercontent.com/mufeng05/turboacc/luci/img/fw4.png)
 
 ## 关于
 

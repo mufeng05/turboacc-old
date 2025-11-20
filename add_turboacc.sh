@@ -61,7 +61,7 @@ mkdir -p "./package/turboacc/luci-app-turboacc/root/usr/share/rpcd/ucode"
 mkdir -p "./package/turboacc/luci-app-turboacc/root/usr/share/ucitrack"
 
 for kernel_version in $kernel_versions; do
-    cp -f "$TMPDIR/turboacc/custom/hack-$kernel_version/951-disable-unused-__nf_conntrack_eventmask_report.patch" "./target/linux/generic/hack-$kernel_version"
+    cp -f "$TMPDIR/turboacc/custom/hack-$kernel_version/951-disable-unused-functions.patch" "./target/linux/generic/hack-$kernel_version"
 done
 
 cp -f "$TMPDIR/turboacc/custom/luci-app-turboacc/Makefile" "./package/turboacc/luci-app-turboacc/"
