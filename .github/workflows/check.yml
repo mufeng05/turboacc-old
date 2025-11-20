@@ -1,4 +1,4 @@
-name: Update luci-app-turboacc dependencies
+name: Check TurboACC Updates
 on:
   schedule:
     - cron: '0 23 * * *'
