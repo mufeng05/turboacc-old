@@ -32,6 +32,7 @@ return {
                 },
                 getFastPathStat: {
                         call: function() {
+                                fptype = null;
                                 if (fs.access("/sys/module/xt_FLOWOFFLOAD/refcnt") &&
                                 (readfile("/sys/module/xt_FLOWOFFLOAD/refcnt") || "0") != "0") {
                                         fptype = "Flow offloading (FW3)";
@@ -52,7 +53,7 @@ return {
                                 else if (fs.stat("/sys/kernel/debug/hnat")?.type == "dir") {
                                         ethernet_hnat = (readfile("/sys/kernel/debug/hnat/hook_toggle") != "enabled") &&
                                                 " / Ethernet HNAT Disabled" || "";
-                                        wireless_hnat = (sys.call("grep -q 'WHNAT=1' '/etc/wireless/mediatek/'*_card*.dat") != 0) &&
+                                        wireless_hnat = (system("grep -q 'WHNAT=1' '/etc/wireless/mediatek/'*_card*.dat") != 0) &&
                                                 " / Wireless HNAT Disabled" || "";
                                         if (ethernet_hnat == "" || wireless_hnat == "") {
                                                 fptype = "MediaTek HNAT" + ethernet_hnat + wireless_hnat;
@@ -67,26 +68,28 @@ return {
                 },
                 getFullConeStat: {
                         call: function() {
+                                fctype = null;
                                 if (fs.access("/sys/module/xt_FULLCONENAT/refcnt") &&
                                 (readfile("/sys/module/xt_FULLCONENAT/refcnt") || "0") != "0") {
-                                        fptype = "xt_FULLCONENAT";
+                                        fctype = "xt_FULLCONENAT";
                                 }
                                 else if (fs.access("/sys/module/nft_fullcone/refcnt") &&
                                 (readfile("/sys/module/nft_fullcone/refcnt") || "0") != "0") {
-                                        fptype = "nft_FULLCONENAT";
+                                        fctype = "nft_FULLCONENAT";
                                 }
-                                else if (sys.call("iptables -t nat -L zone_wan_postrouting | grep -q fullcone") == 0) {
-                                        fptype = "Boardcom Fullcone";
+                                else if (system("iptables -t nat -L zone_wan_postrouting | grep -q fullcone") == 0) {
+                                        fctype = "Boardcom Fullcone";
                                 }
                                 
                                 return {
-                                        type: fptype
+                                        type: fctype
                                 };
 
                         }
                 },
                 getTCPCCAStat: {
                         call: function() {
+                                ccatype = null;
                                 ccatype = uc(readfile("/proc/sys/net/ipv4/tcp_congestion_control"));
                                 
                                 return {

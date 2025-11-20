@@ -58,6 +58,7 @@ cp -rf "$TMPDIR/turboacc/lede/patches/libnftnl/patches/"* "./package/libs/libnft
 echo "Applying custom patches..."
 
 mkdir -p "./package/turboacc/luci-app-turboacc/root/usr/share/rpcd/ucode"
+mkdir -p "./package/turboacc/luci-app-turboacc/root/usr/share/ucitrack"
 
 for kernel_version in $kernel_versions; do
     cp -f "$TMPDIR/turboacc/custom/hack-$kernel_version/951-disable-unused-__nf_conntrack_eventmask_report.patch" "./target/linux/generic/hack-$kernel_version"
@@ -66,6 +67,7 @@ done
 cp -f "$TMPDIR/turboacc/custom/luci-app-turboacc/Makefile" "./package/turboacc/luci-app-turboacc/"
 cp -f "$TMPDIR/turboacc/custom/luci-app-turboacc/root/etc/uci-defaults/turboacc" "./package/turboacc/luci-app-turboacc/root/etc/uci-defaults/"
 cp -f "$TMPDIR/turboacc/custom/luci-app-turboacc/root/usr/share/rpcd/ucode/luci.turboacc" "./package/turboacc/luci-app-turboacc/root/usr/share/rpcd/ucode/"
+cp -f "$TMPDIR/turboacc/custom/luci-app-turboacc/root/usr/share/ucitrack/luci-app-turboacc.json" "./package/turboacc/luci-app-turboacc/root/usr/share/ucitrack/"
 rm -rf "./package/turboacc/luci-app-turboacc/root/usr/libexec"
 cp -f "$TMPDIR/turboacc/custom/fullconenat-nft/Makefile" "./package/turboacc/fullconenat-nft/"
 
