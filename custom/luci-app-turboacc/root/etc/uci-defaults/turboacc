@@ -8,7 +8,7 @@ config turboacc 'global'
 	option set '0'
 
 config turboacc 'config'
-	option tcpcca 'cubic'
+	option tcpcca 'bbr'
 
 EOF
 
