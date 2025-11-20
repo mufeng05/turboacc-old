@@ -29,7 +29,7 @@ jobs:
 
         - name: 整理
           run: |
-            cp -r $CLONE_PATH/turboacc/lede $COMPARE_PATH/original/
+            cp -r $CLONE_PATH/turboacc/lede/* $COMPARE_PATH/original/
             cp -r $CLONE_PATH/lede/package/network/services/fullconenat $COMPARE_PATH/new/
             cp -r $CLONE_PATH/lede/package/network/services/fullconenat-nft $COMPARE_PATH/new/
             cp $CLONE_PATH/lede/target/linux/generic/hack-6.6/952-add-net-conntrack-events-support-multiple-registrant.patch $COMPARE_PATH/new/hack-6.6/
