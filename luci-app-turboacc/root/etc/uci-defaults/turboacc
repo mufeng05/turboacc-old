@@ -18,7 +18,7 @@ if [ -e "/lib/modules/$kernel_ver/mtkhnat.ko" ]; then
 	uci -q set "turboacc.config.fastpath"="mediatek_hnat"
 	uci -q set "turboacc.config.fastpath_mh_eth_hnat"="1"
 	uci -q set "turboacc.config.fastpath_mh_eth_hnat_v6"="1"
-elif [ -e "/lib/modules/$kernel_ver/xt_FLOWOFFLOAD.ko" ]; then
+elif [ -e "/lib/modules/$kernel_ver/xt_FLOWOFFLOAD.ko" ] || [ -e "/lib/modules/$kernel_ver/nft_flow_offload.ko" ]; then
 	uci -q set "turboacc.config.fastpath"="flow_offloading"
 	if grep -q "mt762" "/etc/openwrt_release"; then
 		uci -q set "turboacc.config.fastpath_fo_hw"="1"
@@ -39,7 +39,7 @@ else
 	uci -q set "turboacc.config.fastpath"="none"
 fi
 
-if [ -e "/lib/modules/$kernel_ver/xt_FULLCONENAT.ko" ]; then
+if [ -e "/lib/modules/$kernel_ver/xt_FULLCONENAT.ko" ] || [ -e "/lib/modules/$kernel_ver/nft_fullcone.ko" ]; then
 	uci -q set "turboacc.config.fullcone"="1"
 else
 	uci -q set "turboacc.config.fullcone"="0"
