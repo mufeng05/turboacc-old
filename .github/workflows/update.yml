@@ -54,10 +54,13 @@ jobs:
         - name: 对比
           id: diff
           run: |
-            if diff -r "$COMPARE_PATH/original/" "$COMPARE_PATH/new/"; then
-                echo "The contents of $COMPARE_PATH/original/ and $COMPARE_PATH/new/ are the same."
+            DIFF_OUTPUT=$(diff -ruN "$COMPARE_PATH/original/" "$COMPARE_PATH/new/" || true)
+
+            if [ -z "$DIFF_OUTPUT" ]; then
+                echo "两个目录完全相同。"
                 echo "test=false" >> "$GITHUB_OUTPUT"
             else
-                echo "The contents of $COMPARE_PATH/original/ and $COMPARE_PATH/new/ are different."
+                echo "两个目录存在差异："
+                echo "$DIFF_OUTPUT"
                 echo "test=true" >> "$GITHUB_OUTPUT"
             fi
