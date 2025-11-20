@@ -23,7 +23,7 @@ LUCI_DEPENDS:= \
 	+PACKAGE_TURBOACC_INCLUDE_FAST_CLASSIFIER:kmod-fast-classifier \
 	+PACKAGE_TURBOACC_INCLUDE_SHORTCUT_FE_CM:kmod-shortcut-fe-cm \
 	+PACKAGE_TURBOACC_INCLUDE_BBR_CCA:kmod-tcp-bbr
-LUCI_PKGARCH:=all
+LUCI_PKGARCH:=all1
 
 define Package/luci-app-turboacc/config
   choice
